@@ -1,53 +1,30 @@
-console.log('test');
-  // Create Dino Constructor
-    function Dino() {
-      this.species = species;
-      this.weight = weight;
-      this.height = height;
-      this.diet = diet;
-      this.where = where;
-      this.when = when;
-      this.fact = fact;
-    }
-
-    const dinoSpecies = new Dino();
 
     console.log('test');
+    // Create Dino Constructor
+
+
+    const dinosData = async () => {
+      const response = await fetch("./dino.json");
+      const data = await response.json();
+      return data.Dinos;
+    };
 
     // Create Dino Objects
-    let Triceratops = {
-      species : dinoSpecies.species,
-      weight : dinoSpecies.weight,
-      height : dinoSpecies.height,
-      diet : dinoSpecies.diet,
-      where : dinoSpecies.where,
-      when : dinoSpecies.when,
-      fact : dinoSpecies.fact
-    };
+
+
     // Create Human Object
-    let Human = {
-      species : dinoSpecies.species,
-      weight : dinoSpecies.weight,
-      height : dinoSpecies.height,
-      diet : dinoSpecies.diet,
-      where : dinoSpecies.where,
-      when : dinoSpecies.when,
-      fact : dinoSpecies.fact
-    };
 
     // Use IIFE to get human data from form
 
-    const newCard = document.createElement('div')
-      const cardTitle = document.createElement('h3')
-      cardTitle.innerHTML = generateData.species
-      cardTitle.innerHTML +=
-                `<img src="./images/${generateData.species}.png" alt="${generateData.species} image"/>`
-      const cardFact = document.createElement('p')
-      cardFact.innerHTML = generateData.fact
-      newCard.classList.add('grid-item')
-      grid.appendChild(newCard)
-      newCard.appendChild(cardTitle)
-      newCard.appendChild(cardFact)
+    // the listener callback is async because
+
+    // we need to wait for dinosData to complete
+
+      btn.addEventListener('click', async function(event) {
+        // wait dinosData complete
+      const dinos = await dinosData();
+      // do something with dinos
+      });
     // Create Dino Compare Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches.
 
