@@ -71,6 +71,15 @@
             "where": "World Wide",
             "when": "Holocene",
             "fact": "All birds are living dinosaurs."
+        },
+        {
+            "species": "Human",
+            "weight": 137,
+            "height": 67,
+            "diet": "keto",
+            "where": "World Wide",
+            "when": "Holocene",
+            "fact": "All humans are living creatures like dinosaurs & pigeons."
         }
     ]
 }
