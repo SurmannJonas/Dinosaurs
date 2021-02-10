@@ -1,8 +1,38 @@
-    //console.log('test2');
-    console.log('test' + 'test');
+  let Dino1 = {
+        species: 'Triceratops',
+        weight: 13000,
+        height: 114,
+        diet: 'herbavor',
+        where: 'North America',
+        when: 'Late Cretaceous',
+        fact: 'First discovered in 1889 by Othniel Charles Marsh'
+    };
+    let Dino2 = {
+      species: 'Triceratops',
+      weight: 13000,
+      height: 114,
+      diet: 'herbavor',
+      where: 'North America',
+      when: 'Late Cretaceous',
+      fact: 'First discovered in 1889 by Othniel Charles Marsh'
+    };
+    let Dino3 = {
+      species: 'Triceratops',
+      weight: 13000,
+      height: 114,
+      diet: 'herbavor',
+      where: 'North America',
+      when: 'Late Cretaceous',
+      fact: 'First discovered in 1889 by Othniel Charles Marsh'
+    };
+
+    const dinoArray = [Dino1, Dino2, Dino3];
+
+    console.log(dinoArray[1].species);
+
 
     // Create Dino Constructor
-    function DinoConstructor (species, weight, height, diet, where, when, fact, image) {
+    function DinoConstructor(species, weight, height, diet, where, when, fact, image) {
       this.species = species;
       this.weight = weight;
       this.height = height;
@@ -11,16 +41,29 @@
       this.when = when;
       this.fact = fact;
       this.image = image;
-    }
+    };
 
-    const dinosData = async () => {
+
+    //const dinoClass = new DinoConstructor(species, weight, height, diet, where, when, fact, image);
+    // Create Dino Objects
+
+    //Testing the access of local server
+    //console.log('Fetching ' + dinosJSON());
+    const dinosJSON = async () => {
       const response = await fetch("./dino.json");
       const data = await response.json();
       return data.Dinos;
     };
+    const accessDino = async () => {
+      const a = await dinosJSON;
+      //console.log(a);
+    };
+    //accessDino();
+    //console.log('Fetching ' + accessDino());
 
-    // Create Dino Objects
-    console.log('Fetch ' + dinosData());
+
+
+
 
     // Create Human Object
 
