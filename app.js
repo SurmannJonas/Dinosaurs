@@ -1,7 +1,17 @@
+    //console.log('test2');
+    console.log('test' + 'test');
 
-    console.log('test');
     // Create Dino Constructor
-
+    function DinoConstructor (species, weight, height, diet, where, when, fact, image) {
+      this.species = species;
+      this.weight = weight;
+      this.height = height;
+      this.diet = diet;
+      this.where = where;
+      this.when = when;
+      this.fact = fact;
+      this.image = image;
+    }
 
     const dinosData = async () => {
       const response = await fetch("./dino.json");
@@ -10,21 +20,23 @@
     };
 
     // Create Dino Objects
-
+    console.log('Fetch ' + dinosData());
 
     // Create Human Object
 
     // Use IIFE to get human data from form
 
+
+
     // the listener callback is async because
-
     // we need to wait for dinosData to complete
-
       btn.addEventListener('click', async function(event) {
         // wait dinosData complete
       const dinos = await dinosData();
       // do something with dinos
       });
+
+
     // Create Dino Compare Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches.
 
