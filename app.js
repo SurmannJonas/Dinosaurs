@@ -16,6 +16,18 @@
 
       //dinoTiles function which is invoked for each object in the cacheDino array
       function dinoTiles(item, index) {
+        //Constructor function to create a creatures class
+        function CreaturesClass(species, weight, height, diet, where, when, fact) {
+          this.species = species,
+          this.weight = weight,
+          this.height = height,
+          this.diet = diet,
+          this.where = where,
+          this.when = when,
+          this.fact = fact
+        };
+        //Invoking Constructor function to create a new object for dinosaurs
+        let dinoObj = new CreaturesClass(item.species, item.weight, item.height, item.diet, item.where, item.when, item.fact);
 
         //Comparing Height of Dinosaurs and Humans
         function compareHeight (nameDino, heightDino, heightHuman) {
@@ -35,6 +47,28 @@
             return dietComparison;
         };
 
+        //Variable for extractHumanData function that extracts entered data from form
+        const getHumanData = extractHumanData();
+          //console.log(getHumanData.name);
+          function extractHumanData () {
+            //Extracting human data from form
+            humanObj.name = document.getElementById('name').value;
+            let feet = document.getElementById('feet').value;
+              //In case nothing was entered in feet field
+              if (feet === '') {feet = 0;};
+            let inches = document.getElementById('inches').value;
+              //In case nothing was entered in inches field
+              if (inches === '') {inches = 0;};
+            //Converting feet to inch (1 foot = 12 inches)
+            humanObj.height = parseFloat(feet * 12) + parseFloat(inches);
+            humanObj.weight = document.getElementById('weight').value;
+              //In case nothing was entered in weight field
+              if (humanObj.weight === '') {humanObj.weight = 0;};
+            humanObj.diet = document.getElementById('diet').value;
+            //Returning Human Object with data from form
+            return humanObj;
+          };
+
         //Invoking comparison functions
         function randomFacts () {
           //Generating random number to invoke different switch cases randomly
@@ -43,27 +77,27 @@
           switch (randomNumber){
             case 0:
               //Returning and invoking height comparison function
-              return compareHeight(item.species, item.height, getHumanData.height);
+              return compareHeight(dinoObj.species, dinoObj.height, getHumanData.height);
               break;
             case 1:
               //Returning and invoking weight comparison function
-              return compareWeight(item.species, item.weight, getHumanData.weight);
+              return compareWeight(dinoObj.species, dinoObj.weight, getHumanData.weight);
               break;
             case 2:
               //Returning and invoking diet comparison function
-              return compareDiet(item.species, item.diet, getHumanData.diet);
+              return compareDiet(dinoObj.species, dinoObj.diet, getHumanData.diet);
               break;
             case 3:
               //Returning age property of Dinosaur object
-              return item.when;
+              return dinoObj.when;
               break;
             case 4:
               //Returning global occurrence property of Dinosaur object
-              return item.where;
+              return dinoObj.where;
               break;
             case 5:
               //Returning fact property of Dinosaur object
-              return item.fact;
+              return dinoObj.fact;
               break;
             //Default mode, in case random number does not match the cases
             default:
@@ -87,33 +121,8 @@
           newCard.appendChild(cardFact);
         };
 
-        //Variable for extractHumanData function that extracts entered data from form
-        const getHumanData = extractHumanData();
-          //console.log(getHumanData.name);
-          function extractHumanData () {
-            //Extracting human data from form
-            humanObj.name = document.getElementById('name').value;
-            let feet = document.getElementById('feet').value;
-              //In case nothing was entered in feet field
-              if (feet === '') {feet = 0;};
-            let inches = document.getElementById('inches').value;
-              //In case nothing was entered in inches field
-              if (inches === '') {inches = 0;};
-            //Converting feet to inch (1 foot = 12 inches)
-            humanObj.height = parseFloat(feet * 12) + parseFloat(inches);
-            humanObj.weight = document.getElementById('weight').value;
-              //In case nothing was entered in weight field
-              if (humanObj.weight === '') {humanObj.weight = 0;};
-            humanObj.diet = document.getElementById('diet').value;
-            //humanObj.where = 'Global';
-            //humanObj.when = 'Anthropocene Age';
-            //humanObj.fact = 'Humans are living creatures as Dinosaurs used to be';
-            //Returning Human Object with data from form
-            return humanObj;
-          };
-
-          if (index === 4) {
-            // Use IIFE to get human data from form
+        if (index === 4) {
+            // Use IIFE to get human data from form and to trigger function automatically as soon as index = 4
             (function humanData () {
               extractHumanData();
               //Adding human tile
@@ -121,9 +130,7 @@
               const cardTitle = document.createElement('h3');
               cardTitle.innerHTML = humanObj.name;
               //Placeholder, in case user has not entered a name
-              if (humanObj.name === "") {
-                cardTitle.innerHTML = 'Name of Human';
-              };
+              if (humanObj.name === "") {cardTitle.innerHTML = 'Name of Human';};
               cardTitle.innerHTML +=
                         `<img src="./images/human.png" alt="Human image"/>`;
               const cardFact = document.createElement('p');
@@ -133,15 +140,12 @@
               newCard.appendChild(cardTitle);
               //newCard.appendChild(cardFact);
             })();
-          };
-
+        };
         //Invoking function to add Dino tiles to DOM
-        addTiles(item);
+        addTiles(dinoObj);
       };
-
       //Invoking dinoTiles function to access each array element with included Dino objects
       cacheDino.forEach(dinoTiles);
-
       //Hiding form as soon as the 'Compage Me' button is clicked
       document.getElementById('dino-compare').style.display = 'none';
 
