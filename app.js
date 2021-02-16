@@ -1,21 +1,19 @@
 //IIFE
   (async() => {
-    //Fetching data from dino.json
-    const dinosData = async () => {
-      const response = await fetch("./dino.json");
-      const data = await response.json();
-      return data.Dinos;
-    };
-    // Create cacheDino array with included Dino objects
-    const cacheDino = await dinosData();
-    // Create Human Object
-    const humanObj = {};
-
     //Event Listener for clicking "Compare Me" button to start actions after clicking
     btn.addEventListener('click', async function(event) {
+      //Fetching data from dino.json
+      const dinosData = async () => {
+        const response = await fetch("./dino.json");
+        const data = await response.json();
+        return data.Dinos;
+      };
 
       //dinoTiles function which is invoked for each object in the cacheDino array
       function dinoTiles(item, index) {
+
+        console.log(index);
+
         //Constructor function to create a creatures class
         function CreaturesClass(species, weight, height, diet, where, when, fact) {
           this.species = species,
@@ -51,6 +49,8 @@
         const getHumanData = extractHumanData();
           //console.log(getHumanData.name);
           function extractHumanData () {
+            // Create Human Object
+            const humanObj = {};
             //Extracting human data from form
             humanObj.name = document.getElementById('name').value;
             let feet = document.getElementById('feet').value;
@@ -72,7 +72,7 @@
         //Invoking comparison functions
         function randomFacts () {
           //Generating random number to invoke different switch cases randomly
-          const randomNumber = Math.floor(Math.random() * 6)
+          const randomNumber = Math.floor(Math.random() * 6);
           //Switch statement for filling in different facts about Dinosaurs randomly into Dinasaurs tiles
           switch (randomNumber){
             case 0:
@@ -121,6 +121,8 @@
           newCard.appendChild(cardFact);
         };
 
+        addTiles(dinoObj);
+
         if (index === 4) {
             // Use IIFE to get human data from form and to trigger function automatically as soon as index = 4
             (function humanData () {
@@ -128,13 +130,13 @@
               //Adding human tile
               const newCard = document.createElement('div');
               const cardTitle = document.createElement('h3');
-              cardTitle.innerHTML = humanObj.name;
+              cardTitle.innerHTML = getHumanData.name;
               //Placeholder, in case user has not entered a name
-              if (humanObj.name === "") {cardTitle.innerHTML = 'Name of Human';};
+              if (getHumanData.name === "") {cardTitle.innerHTML = 'Name of Human';};
               cardTitle.innerHTML +=
                         `<img src="./images/human.png" alt="Human image"/>`;
-              const cardFact = document.createElement('p');
-              cardFact.innerHTML = humanObj.fact;
+              //const cardFact = document.createElement('p');
+              //cardFact.innerHTML = getHumanData.fact;
               newCard.classList.add('grid-item');
               grid.appendChild(newCard);
               newCard.appendChild(cardTitle);
@@ -142,10 +144,44 @@
             })();
         };
         //Invoking function to add Dino tiles to DOM
-        addTiles(dinoObj);
+        //addTiles(dinoObj);
       };
+      // Create cacheDino array with included Dino objects
+      const cacheDino = await dinosData();
+
       //Invoking dinoTiles function to access each array element with included Dino objects
-      cacheDino.forEach(dinoTiles);
+      //cacheDino.forEach(dinoTiles);
+
+      //Invoking dinoTiles function to access each array element with Dino objects included in random order
+      (function randomTiles (dinoArr) {
+        //Creating array for random number
+        let numberArr = [];
+        //Variable for random numbers from the random number generator
+        let randomNr;
+        //First do-while loop for inserting the first three random numbers into the array
+        do {
+            randomNr = Math.floor(Math.random() * 8);
+            if (!numberArr.includes(randomNr) && randomNr !== 4) {
+                numberArr.push(randomNr);
+            };
+        //Condition to end the do-while loop: array needs to contain 3 elements
+        } while (numberArr.length < 4);
+        //4th element of array needs to have the value of 4 in order to position the human tile in the middle of the Dinosaurs's tiles
+        numberArr[3] = 4;
+        //Second do-while loop for inserting the last four random numbers into the array
+        do {
+            randomNr = Math.floor(Math.random() * 8);
+            if (!numberArr.includes(randomNr) && randomNr !== 4) {
+                numberArr.push(randomNr);
+            };
+        //Condition to end the do-while loop: array needs to contain 8 elements
+        } while (numberArr.length < 8);
+        let i;
+        for (i = 0; i < numberArr.length; i++) {
+          dinoTiles(cacheDino[numberArr[i]], numberArr[i]);
+        };
+      })(cacheDino);
+
       //Hiding form as soon as the 'Compage Me' button is clicked
       document.getElementById('dino-compare').style.display = 'none';
 
