@@ -190,7 +190,7 @@
         do {
             randomNr = Math.floor(Math.random() * 8);
             if (!numberArr.includes(randomNr) && randomNr !== 4) {
-                //Invoking function to add Dino tiles to DOM
+                //Adding randomNr to numberArr array
                 numberArr.push(randomNr);
             };
         //Condition to end the do-while loop: array needs to contain 8 elements
