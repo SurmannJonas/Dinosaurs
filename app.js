@@ -1,4 +1,4 @@
-//IIFE is starting when Dinosaur is opened
+//IIFE is starting when Dinosaur website is opened
   (async() => {
     //Event Listener for clicking "Compare Me" button to start actions after clicking
     btn.addEventListener('click', async function(event) {
@@ -133,14 +133,14 @@
             "#7f62b3fa",
             "#9fc376f9",
             "#677bcbfa" ];
-          ////Adjusting backgroundColor for Dinosaur tiles
+          //Adjusting backgroundColor for Dinosaur tiles
           newCard.style.backgroundColor = colorArr[index];
           //Appending tiles to DOM
           grid.appendChild(newCard);
           newCard.appendChild(cardTitle);
           newCard.appendChild(cardFact);
         };
-
+        //Invoking function to add Dino tiles to DOM
         addTiles(dinoObj);
 
         if (index === 4) {
@@ -157,25 +157,17 @@
               if (getHumanData.name === "") {cardTitle.innerHTML = 'Name of Human';};
               cardTitle.innerHTML +=
                         `<img src="./images/human.png" alt="Human image"/>`;
-              //const cardFact = document.createElement('p');
-              //cardFact.innerHTML = getHumanData.fact;
               newCard.classList.add('grid-item');
               //Adjusting backgroundColor for human tile
               newCard.style.backgroundColor = "#67a866f9";
               //Appending tile to DOM
               grid.appendChild(newCard);
               newCard.appendChild(cardTitle);
-              //newCard.appendChild(cardFact);
             })();
         };
-        //Invoking function to add Dino tiles to DOM
-        //addTiles(dinoObj);
       };
       // Create cacheDino array with included Dino objects
       const cacheDino = await dinosData();
-
-      //Invoking dinoTiles function to access each array element with included Dino objects
-      //cacheDino.forEach(dinoTiles);
 
       //randomTiles IIFE to access each array element with Dino objects included in random order
       (function randomTiles (dinoArr) {
@@ -187,6 +179,7 @@
         do {
             randomNr = Math.floor(Math.random() * 8);
             if (!numberArr.includes(randomNr) && randomNr !== 4) {
+                //Adding randomNr to numberArr array
                 numberArr.push(randomNr);
             };
         //Condition to end the do-while loop: array needs to contain 3 elements
@@ -197,6 +190,7 @@
         do {
             randomNr = Math.floor(Math.random() * 8);
             if (!numberArr.includes(randomNr) && randomNr !== 4) {
+                //Invoking function to add Dino tiles to DOM
                 numberArr.push(randomNr);
             };
         //Condition to end the do-while loop: array needs to contain 8 elements
