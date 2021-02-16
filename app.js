@@ -1,4 +1,4 @@
-//IIFE
+//IIFE is starting when Dinosaur is opened
   (async() => {
     //Event Listener for clicking "Compare Me" button to start actions after clicking
     btn.addEventListener('click', async function(event) {
@@ -11,9 +11,6 @@
 
       //dinoTiles function which is invoked for each object in the cacheDino array
       function dinoTiles(item, index) {
-
-        console.log(index);
-
         //Constructor function to create a creatures class
         function CreaturesClass(species, weight, height, diet, where, when, fact) {
           this.species = species,
@@ -25,23 +22,33 @@
           this.fact = fact
         };
         //Invoking Constructor function to create a new object for dinosaurs
-        let dinoObj = new CreaturesClass(item.species, item.weight, item.height, item.diet, item.where, item.when, item.fact);
+        let dinoObj = new CreaturesClass(
+          item.species,
+          item.weight,
+          item.height,
+          item.diet,
+          item.where,
+          item.when,
+          item.fact);
 
         //Comparing Height of Dinosaurs and Humans
         function compareHeight (nameDino, heightDino, heightHuman) {
             if (isNaN(heightHuman)) {heightHuman = 'Height of Human';};
-            let heightComparison = `The height of ${nameDino} is ${heightDino}, whereas your height is ${heightHuman}`;
+            let heightComparison =
+              `The height of ${nameDino} is ${heightDino}, whereas your height is ${heightHuman}`;
             return heightComparison;
         };
         //Comparing Height of Dinosaurs and Humans
         function compareWeight (nameDino, weightDino, weightHuman) {
             if (isNaN(weightHuman)) {weightHuman = 'Weight of Human';};
-            let weightComparison = `The weight of ${nameDino} is ${weightDino}, whereas your weight is ${weightHuman}`;
+            let weightComparison =
+              `The weight of ${nameDino} is ${weightDino}, whereas your weight is ${weightHuman}`;
             return weightComparison;
         };
           //Comparing Diet of Dinosaurs and Humans
         function compareDiet (nameDino, dietDino, dietHuman) {
-            let dietComparison = `The diet of ${nameDino} is ${dietDino} and your diet is ${dietHuman}`;
+            let dietComparison =
+              `The diet of ${nameDino} is ${dietDino} and your diet is ${dietHuman}`;
             return dietComparison;
         };
 
@@ -116,6 +123,19 @@
           //Invoking randomFacts function in order to get a random fact of Dinosaurs for the tile via switch statement
           cardFact.innerHTML = randomFacts();
           newCard.classList.add('grid-item');
+          //Color array for Dinosaur tiles
+          const colorArr = [
+            "#009687f5",
+            "#dc7657f5",
+            "#4bb3c1fa",
+            "#fac069f9",
+            "#b94169fa",
+            "#7f62b3fa",
+            "#9fc376f9",
+            "#677bcbfa" ];
+          ////Adjusting backgroundColor for Dinosaur tiles
+          newCard.style.backgroundColor = colorArr[index];
+          //Appending tiles to DOM
           grid.appendChild(newCard);
           newCard.appendChild(cardTitle);
           newCard.appendChild(cardFact);
@@ -129,6 +149,8 @@
               extractHumanData();
               //Adding human tile
               const newCard = document.createElement('div');
+              newCard.setAttribute("id", "humanTile");
+
               const cardTitle = document.createElement('h3');
               cardTitle.innerHTML = getHumanData.name;
               //Placeholder, in case user has not entered a name
@@ -138,6 +160,9 @@
               //const cardFact = document.createElement('p');
               //cardFact.innerHTML = getHumanData.fact;
               newCard.classList.add('grid-item');
+              //Adjusting backgroundColor for human tile
+              newCard.style.backgroundColor = "#67a866f9";
+              //Appending tile to DOM
               grid.appendChild(newCard);
               newCard.appendChild(cardTitle);
               //newCard.appendChild(cardFact);
@@ -152,7 +177,7 @@
       //Invoking dinoTiles function to access each array element with included Dino objects
       //cacheDino.forEach(dinoTiles);
 
-      //Invoking dinoTiles function to access each array element with Dino objects included in random order
+      //randomTiles IIFE to access each array element with Dino objects included in random order
       (function randomTiles (dinoArr) {
         //Creating array for random number
         let numberArr = [];
@@ -176,8 +201,9 @@
             };
         //Condition to end the do-while loop: array needs to contain 8 elements
         } while (numberArr.length < 8);
-        let i;
-        for (i = 0; i < numberArr.length; i++) {
+        //for loop to invoke dinopTiles function for each object within the cacheDino array
+        for (let i = 0; i < numberArr.length; i++) {
+          //Invoking dinoTiles function for each element of the 'numberArr' array
           dinoTiles(cacheDino[numberArr[i]], numberArr[i]);
         };
       })(cacheDino);
